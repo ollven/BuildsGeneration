@@ -27,24 +27,30 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2025.03"
 
 project {
+    name = "Massive Build Project"
 
-    buildType(Build)
+    for (i in 1..100) {
+        buildType(GenerateBuild(i))
+    }
 }
 
-object Build : BuildType({
-    name = "Build"
+class GenerateBuild(val index: Int) : BuildType({
+    name = "Build #$index"
 
     vcs {
         root(DslContext.settingsRoot)
     }
 
-    triggers {
-        vcs {
+    steps {
+        script {
+            name = "Print Build Number"
+            scriptContent = "echo Hello from build $index"
         }
     }
 
-    features {
-        perfmon {
+    triggers {
+        vcs {
+            id = "vcsTrigger_$index"
         }
     }
 })

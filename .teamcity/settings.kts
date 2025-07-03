@@ -34,6 +34,7 @@ project {
 }
 
 class GenerateBuild(val index: Int) : BuildType({
+    id("BuildsGeneration_Build_$index")
     name = "Build #$index"
 
     vcs {
@@ -41,11 +42,9 @@ class GenerateBuild(val index: Int) : BuildType({
     }
 
     steps {
-        step {
+        script {
             name = "Print Build Number"
-            type = "simpleRunner"
-            param("script.content", "echo Hello from build $index")
-            param("use.custom.script", "true")
+            scriptContent = "echo Hello from build $index"
         }
     }
 

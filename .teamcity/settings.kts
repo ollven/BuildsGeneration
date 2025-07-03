@@ -42,9 +42,11 @@ class GenerateBuild(val index: Int) : BuildType({
     }
 
     steps {
-        script {
+        step {
             name = "Print Build Number"
-            scriptContent = "echo Hello from build $index"
+            type = "simpleRunner"
+            param("script.content", "echo Hello from build $index")
+            param("use.custom.script", "true")
         }
     }
 

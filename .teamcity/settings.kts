@@ -1,5 +1,9 @@
 import jetbrains.buildServer.configs.kotlin.*
-import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
+import jetbrains.buildServer.configs.kotlin.project
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.BuildType
+import jetbrains.buildServer.configs.kotlin.buildSteps.ScriptBuildStep
+import jetbrains.buildServer.configs.kotlin.buildSteps.scriptStep
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
 /*
@@ -24,17 +28,14 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 'Debug' option is available in the context menu for the task.
 */
 
-version = "2025.03"
-
 project {
-
     for (i in 1..100) {
         buildType(GenerateBuild(i))
     }
 }
 
-class GenerateBuild(val index: Int) : BuildType({
-    id("BuildsGeneration_Build_$index")
+class GenerateBuild(private val index: Int) : BuildType({
+    id("GeneratedBuild_$index")
     name = "Build #$index"
 
     vcs {
@@ -42,8 +43,8 @@ class GenerateBuild(val index: Int) : BuildType({
     }
 
     steps {
-        script {
-            name = "Print Build Number"
+        scriptStep {
+            name = "Print build number"
             scriptContent = "echo Hello from build $index"
         }
     }

@@ -14,6 +14,7 @@ in the root project, and delete the patch script.
 create(DslContext.projectId, BuildType({
     id("Build101")
     name = "Build #101"
+    paused = true
 
     vcs {
         root(DslContext.settingsRoot)

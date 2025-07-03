@@ -27,7 +27,6 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2025.03"
 
 project {
-    name = "Massive Build Project"
 
     for (i in 1..100) {
         buildType(GenerateBuild(i))
